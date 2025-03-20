@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Package - Admin Panel</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .form-container { max-width: 600px; margin: auto; background: #f4f4f4; padding: 30px 0px 30px 45px; border-radius: 10px; }
+        input, textarea, button { width: 100%; margin-top: 10px; padding: 10px; box-sizing: border-box; }
+        .dynamic-container { margin-top: 10px; }
+        .add-btn { margin-top: 5px; background: #6a1b9a; color: white; border: none; cursor: pointer; }
+
+
+ /* General Sidebar Styling */
+.admin-sidebar {
+  width: 250px;
+  height: 100vh;
+  background-color: #6a1b9a;
+  color: white;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  transition: transform 0.3s ease;
+  z-index: 1000;
+}
+
+/* Sidebar Hidden by Default on Small Screens */
+.admin-sidebar.open {
+    transform: translateX(0);
+  }
+
+
+
+/* Menu Button Inside Sidebar */
+.menu-btn {
+    
+  display: none;
+}
+
+/* Sidebar Content */
+.admin-sidebar h3 {
+  margin: 40px 0 10px 0;
+  font-size: 20px;
+  text-align: center;
+  color: white;
+}
+
+.admin-sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+}
+
+.admin-sidebar ul li {
+  margin: 15px 0;
+}
+
+.admin-sidebar ul li a {
+  text-decoration: none;
+  color: white;
+  font-size: 16px;
+  display: block;
+  padding: 10px;
+  border-radius: 5px;
+  transition: 0.3s;
+}
+
+.admin-sidebar ul li a:hover {
+  background: #8e24aa;
+}
+
+.admin-sidebar-btn {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px;
+  margin-top: 10px;
+  background: #8e24aa;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+/* Mobile Responsive Design */
+@media (max-width: 768px) {
+  .admin-sidebar {
+    width: 70%;
+    max-width: 250px;
+    
+  }
+
+  /* Show Sidebar when Open */
+
+  .admin-sidebar.closed {
+  transform: translateX(-80%);
+}
+
+.admin-sidebar.closed h3{ 
+    display: none;
+}
+
+.admin-sidebar.closed ul{ 
+    display: none;
+}
+.admin-sidebar.closed ul{ 
+    display: none;
+}
+  .menu-btn {
+    display: block;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    position: absolute;
+    top: -8px;
+    right: 24px;
+    z-index: 1100;
+    width: 20px;
+  }
+}
+
+
+
+    </style>
+</head>
+<body>
+    
+
+    <div class="admin-sidebar closed" id="adminSidebar">
+        <button class="menu-btn" onclick="toggleSidebar()">➤</button>
+        <h3>Admin Panel</h3>
+        <ul>
+          <li><a href="adminpanel.html">Add Package</a></li>
+          <li><a href="managepackages.html">Delete Packages</a></li>
+          <li><a href="managebooking.html">Manage Bookings</a></li>
+          <button class="admin-sidebar-btn" id="logoutButton">Logout</button>
+        </ul>
+      </div>
+      
+    <div class="form-container">
+        <h2>Add Package</h2>
+        <form id="packageForm" enctype="multipart/form-data">
+            <input type="text" id="name" placeholder="Package Name" required>
+            <input type="text" id="location" placeholder="Location" required>
+            <input type="text" id="duration" placeholder="Duration (e.g., 5 nights 6 days)" required>
+            <input type="number" id="price" placeholder="Price" required>
+            <input type="file" id="image" accept="image/*">
+            <textarea id="description" placeholder="Description" required></textarea>
+            <textarea id="about" placeholder="About" required></textarea>
+            
+            <!-- Category Dropdown -->
+            <select id="category" required>
+                <option value="all">Select Category</option>
+                <option value="Kashmir">Kashmir</option>
+                <option value="Ladakh">Ladakh</option>
+            </select>
+            
+            <h4>Included</h4>
+            <div id="includedContainer" class="dynamic-container"></div>
+            <button type="button" class="add-btn" onclick="addIncluded()">Add Included</button>
+            
+            <h4>Tour Plan</h4>
+            <div id="tourPlanContainer" class="dynamic-container"></div>
+            <button type="button" class="add-btn" onclick="addTourPlan()">Add Tour Plan</button>
+            
+            <button type="submit" class="add-btn">Submit Package</button>
+        </form>
+    </div>
+
+    <script>
+        // Close sidebar by default on mobile/tablet when the page loads
+        window.addEventListener('DOMContentLoaded', () => {
+            const sidebar = document.getElementById('adminSidebar');
+            if (window.innerWidth <= 1050) {
+                sidebar.classList.add('closed');
+            } else {
+                sidebar.classList.add('open');
+            }
+        });
+    </script>
+    
+    <script>
+       function toggleSidebar() {
+            const sidebar = document.getElementById('adminSidebar');
+            sidebar.classList.toggle('open');
+            sidebar.classList.toggle('closed');
+            }
+
+        function addIncluded() {
+            const container = document.getElementById('includedContainer');
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.className = 'included-input';
+            input.placeholder = 'Included Item';
+            container.appendChild(input);
+        }
+    
+        function addTourPlan() {
+            const container = document.getElementById('tourPlanContainer');
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.className = 'tourPlan-input';
+            input.placeholder = 'Tour Plan Item';
+            container.appendChild(input);
+        }
+    
+        document.getElementById('packageForm').onsubmit = async (e) => {
+            e.preventDefault();
+            const formData = new FormData();
+            formData.append('name', document.getElementById('name').value);
+            formData.append('location', document.getElementById('location').value);
+            formData.append('duration', document.getElementById('duration').value);
+            formData.append('price', document.getElementById('price').value);
+            formData.append('image', document.getElementById('image').files[0]);
+            formData.append('description', document.getElementById('description').value);
+            formData.append('about', document.getElementById('about').value);
+            formData.append('category', document.getElementById('category').value);
+            
+            const included = Array.from(document.querySelectorAll('.included-input'))
+                .map(input => input.value.trim())
+                .filter(value => value);
+    
+            const tourPlan = Array.from(document.querySelectorAll('.tourPlan-input'))
+                .map(input => input.value.trim())
+                .filter(value => value);
+    
+            // Convert arrays to JSON strings before appending them to formData
+            formData.set('included', JSON.stringify(included));
+            formData.set('tourPlan', JSON.stringify(tourPlan));
+    
+            const response = await fetch('http://localhost:5000/api/packages/add', { method: 'POST', body: formData });
+            const result = await response.json();
+            alert(result.message || 'Package added successfully!');
+        };
+    </script>
+    
+
+<script>
+    document.getElementById("logoutButton").addEventListener("click", function () {
+        localStorage.removeItem("token"); // Clear token
+        window.location.href = "admin-login.html"; // Redirect to login
+        console.log("logout")
+        });
+    </script>
+    <script src="./js/auth.js"></script>
+
+</body>
+</html>

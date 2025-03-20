@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+        .sidebar {
+            width: 250px;
+            background: #333;
+            color: white;
+            height: 100vh;
+            padding: 20px;
+        }
+        .sidebar h2 {
+            text-align: center;
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        .sidebar ul li {
+            padding: 10px;
+            border-bottom: 1px solid gray;
+        }
+        .sidebar ul li:hover {
+            background: #555;
+            cursor: pointer;
+        }
+        .main-content {
+            flex: 1;
+            padding: 20px;
+        }
+        .header {
+            background: #444;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Admin Panel</h2>
+        <ul>
+            <li>Dashboard</li>
+            <li>Users</li>
+            <li>Settings</li>
+            <li>Logout</li>
+        </ul>
+    </div>
+    <!-- <div class="main-content">
+        <div class="header">
+            <h1>Welcome to Admin Dashboard</h1>
+        </div>
+        <p>This is the main content area.</p>
+    </div> -->
+    <div class="main-content">
+        <div class="header">
+            <h1>Manage Travel Packages</h1>
+        </div>
+    
+        <h2>All Packages</h2>
+        <ul id="packageList"></ul>
+    
+        <h2>Add New Package</h2>
+        <form id="packageForm">
+            <input type="text" id="name" placeholder="Package Name" required>
+            <input type="text" id="description" placeholder="Description" required>
+            <input type="number" id="price" placeholder="Price" required>
+            <input type="text" id="image" placeholder="Image URL" required>
+            <input type="text" id="duration" placeholder="Duration" required>
+            <button type="submit">Add Package</button>
+        </form>
+    </div>
+    
+    <script>
+      const API_URL = "http://localhost:5000/api/packages";
+    
+      async function fetchPackages() {
+          const response = await fetch(API_URL);
+          const packages = await response.json();
+          document.getElementById("packageList").innerHTML = packages.map(
+              pkg => `<li>${pkg.name} - $${pkg.price} 
+                      <button onclick="deletePackage('${pkg._id}')">Delete</button>
+                      <button onclick="editPackage('${pkg._id}', '${pkg.name}', '${pkg.description}', '${pkg.price}', '${pkg.image}', '${pkg.duration}')">Edit</button>
+                    </li>`
+          ).join("");
+      }
+    
+      document.getElementById("packageForm").addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const newPackage = {
+              name: document.getElementById("name").value,
+              description: document.getElementById("description").value,
+              price: document.getElementById("price").value,
+              image: document.getElementById("image").value,
+              duration: document.getElementById("duration").value
+          };
+          await fetch(API_URL, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(newPackage) });
+          fetchPackages(); // Refresh list
+      });
+    
+      async function deletePackage(id) {
+          await fetch(`${API_URL}/${id}`, { method: "DELETE" });
+          fetchPackages();
+      }
+    
+      function editPackage(id, name, description, price, image, duration) {
+          document.getElementById("name").value = name;
+          document.getElementById("description").value = description;
+          document.getElementById("price").value = price;
+          document.getElementById("image").value = image;
+          document.getElementById("duration").value = duration;
+          
+          document.getElementById("packageForm").onsubmit = async (e) => {
+              e.preventDefault();
+              const updatedPackage = {
+                  name: document.getElementById("name").value,
+                  description: document.getElementById("description").value,
+                  price: document.getElementById("price").value,
+                  image: document.getElementById("image").value,
+                  duration: document.getElementById("duration").value
+              };
+              await fetch(`${API_URL}/${id}`, { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify(updatedPackage) });
+              fetchPackages(); // Refresh list
+              document.getElementById("packageForm").reset();
+              document.getElementById("packageForm").onsubmit = addPackage; // Reset form behavior
+          };
+      }
+    
+      fetchPackages();
+    </script>
+    
+
+    
+
+    <script>
+        async function fetchPackages() {
+          const response = await fetch("http://localhost:5000/api/packages");
+          const data = await response.json();
+          document.getElementById("packageList").innerHTML = data.map(
+            (pkg) => `<li>${pkg.name} - $${pkg.price}</li>`
+          ).join("");
+        }
+      
+        fetchPackages();
+      </script>
+      
+      <ul id="packageList"></ul>
+
+      
+</body>
+</html>
