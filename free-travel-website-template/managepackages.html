@@ -223,7 +223,7 @@
         
     async function fetchPackages() {
         try {
-            const response = await fetch("http://localhost:5000/api/packages");
+            const response = await fetch("https://voyage-ppks.onrender.com/api/packages");
             const packages = await response.json();
 
             const packageList = document.getElementById("packageList");
@@ -249,7 +249,7 @@
 
     async function deletePackage(id) {
         try {
-            const response = await fetch(`http://localhost:5000/api/packages/${id}`, {
+            const response = await fetch(`https://voyage-ppks.onrender.com/api/packages/${id}`, {
                 method: "DELETE"
             });
 
@@ -283,7 +283,7 @@
         };
 
         try {
-            const response = await fetch(`http://localhost:5000/api/packages/${id}`, {
+            const response = await fetch(`https://voyage-ppks.onrender.com/api/packages/${id}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json"
