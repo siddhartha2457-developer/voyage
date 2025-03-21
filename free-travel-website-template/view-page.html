@@ -24,13 +24,14 @@
         }
         .itenary-package-details h2, h3 {
             color: #e67e22;
+            padding: 15px;
         }
-        .itenary-package-details img {
+        /* .itenary-package-details img {
             max-height: 500px;
             width: 100%;
             border-radius: 8px;
             margin-bottom: 20px;
-        }
+        } */
         .info-section {
             display: flex;
             justify-content: space-between;
@@ -38,6 +39,7 @@
             padding: 10px;
             border-radius: 8px;
             margin-bottom: 20px;
+            /* flex-direction: column; */
         }
         .info-item {
             text-align: center;
@@ -69,6 +71,59 @@
             padding: 10px;
             border-radius: 5px;
         }
+        /* .package-identy {
+            display: flex;
+            flex-direction: row;
+        } */
+
+    .package-identy {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 45px 15px;
+  background: #fff;
+  
+  
+  margin: 0 auto;
+}
+
+.about-package {
+  max-width: 50%;
+}
+
+.about-package h3 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #ffc107;
+}
+
+.about-package p {
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.6;
+  padding: 10px;
+}
+
+#package-image {
+  max-width: 50%;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .package-identy {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .about-package, #package-image {
+    max-width: 100%;
+  }
+}
+
     </style>
 </head>
 <body>
@@ -80,7 +135,7 @@
             <div class="row">
                 <div class="col-lg-6 text-center text-lg-left mb-2 mb-lg-0">
                     <div class="d-inline-flex align-items-center">
-                        <p><i class="fa fa-envelope mr-2"></i>Vouagemaster@gmail.com</p>
+                        <p><i class="fa fa-envelope mr-2"></i>Voyagemaster@gmail.com</p>
                         <p class="text-body px-3">|</p>
                         <p><i class="fa fa-phone-alt mr-2"></i>+91 7006911449</p>
                     </div>
@@ -114,8 +169,8 @@
    <div class="container-fluid position-relative nav-bar p-0">
     <div class="container-lg position-relative p-0 px-lg-3" style="z-index: 9;">
         <nav class="navbar navbar-expand-lg bg-light navbar-light shadow-lg py-3 py-lg-0 pl-3 pl-lg-5">
-            <a href="" class="navbar-brand">
-                <h1 class="m-0 text-primary"><span class="text-dark">VOYAGE</span>MASTER</h1>
+            <a href="index.html" class="navbar-brand">
+                <h1 class="m-0 text-primary"><span class="text-dark">VOYAGE</span>MASTERS</h1>
             </a>
             <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
                 <span class="navbar-toggler-icon"></span>
@@ -145,7 +200,13 @@
 
     <div class="itenary-package-details">
         <h2 id="package-name" style="text-align: center; font-weight: 600;"></h2>
-        <img id="package-image" src="" alt="Package Image">
+        <div class="package-identy">
+            <div class="about-package">
+            <h3>About</h3>
+            <p id="package-about"></p>
+        </div>
+            <img id="package-image" src="" alt="Package Image">
+        </div>
         <div class="info-section">
             <div class="info-item"><img src="./img/location-icon.svg" alt="Location"><br><span id="package-location"></span></div>
             <div class="info-item"><img src="./img/price-icon.svg" alt="Price"><br><span id="package-price"></span> INR</div>
@@ -154,8 +215,6 @@
             <div class="info-item"><img src="meals-icon.png" alt="Meals"><br><span id="package-meals"></span></div>
             <div class="info-item"><img src="vehicle-icon.png" alt="Vehicle"><br><span id="package-vehicle"></span></div> -->
         </div>
-        <h3>About</h3>
-        <p id="package-about"></p>
         <h3>Included</h3>
         <ul id="package-included"></ul>
         <h3>Tour Plan</h3>

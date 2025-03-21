@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const bodyParser = require('body-parser');
+const sendMail = require('./mailService');
 
 
 const adminRoutes = require("./routes/adminRoutes"); 
@@ -47,3 +48,14 @@ mongoose.connect(process.env.MONGO_URI, {
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
+
+app.post('/send-mail', async (req, res) => {
+    const { name, email, phone, destination } = req.body;
+  
+    try {
+      const response = await sendMail(name, email, phone, destination);
+      res.status(200).send('Email sent successfully: ' + response);
+    } catch (error) {
+      res.status(500).send('Failed to send email');
+    }
+  });

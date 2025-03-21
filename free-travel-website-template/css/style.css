@@ -8666,7 +8666,7 @@ button.bg-dark:focus {
   }
   .pl-lg-5,
   .px-lg-5 {
-    padding-left: 3rem !important;
+    padding-left: 1rem !important;
   }
   .m-lg-n1 {
     margin: -0.25rem !important;
@@ -9512,7 +9512,7 @@ h6,
 }
 
 .navbar-light .navbar-nav .nav-link {
-  padding: 30px 15px;
+  padding: 30px 11px;
   color: #212121;
   font-weight: 500;
   outline: none;
