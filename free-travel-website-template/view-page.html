@@ -223,14 +223,14 @@
         <a href="booking.html?id=" id="book-now-btn" class="itenary-btn">Book Now</a>
     </div>
     <script>
-const IMAGE_URL = "http://localhost:5000/uploads/";
+const IMAGE_URL = "https://voyage-ppks.onrender.com/uploads/";
 const urlParams = new URLSearchParams(window.location.search);
 const packageId = urlParams.get("id");
 if (!packageId || packageId === "PACKAGE_ID") {
     alert("Invalid Package ID!");
     window.location.href = "index.html";
 } else {
-    fetch(`http://localhost:5000/api/packages/${packageId}`)
+    fetch(`https://voyage-ppks.onrender.com/api/packages/${packageId}`)
         .then(response => response.json())
         .then(data => {
             document.getElementById("package-name").textContent = data.name;

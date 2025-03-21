@@ -232,7 +232,7 @@
             formData.set('included', JSON.stringify(included));
             formData.set('tourPlan', JSON.stringify(tourPlan));
     
-            const response = await fetch('http://localhost:5000/api/packages/add', { method: 'POST', body: formData });
+            const response = await fetch('https://voyage-ppks.onrender.com/api/packages/add', { method: 'POST', body: formData });
             const result = await response.json();
             alert(result.message || 'Package added successfully!');
         };

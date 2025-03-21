@@ -122,12 +122,12 @@
 
         async function fetchPackages() {
             try {
-                const response = await fetch(`http://localhost:5000/api/packages?category=${category}`);
+                const response = await fetch(`https://voyage-ppks.onrender.com/api/packages?category=${category}`);
                 const packages = await response.json();
                 const container = document.getElementById('package-container');
 
                 packages.forEach(pkg => {
-                    const imagePath = `http://localhost:5000/uploads/${pkg.image}`;
+                    const imagePath = `https://voyage-ppks.onrender.com/uploads/${pkg.image}`;
                     const packageElement = document.createElement("div");
                     packageElement.classList.add("col-lg-4", "col-md-6", "mb-4");
                     packageElement.innerHTML = `
